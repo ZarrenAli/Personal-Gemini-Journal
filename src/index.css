@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@layer base {
+  html, body {
+    background-color: #FDF6F0;
+    /* Monument Valley architectural pastel sky and warm sandstone atmosphere */
+    background-image: 
+      radial-gradient(at 15% 15%, rgba(253, 226, 228, 0.75) 0px, transparent 55%),
+      radial-gradient(at 85% 10%, rgba(254, 217, 203, 0.65) 0px, transparent 50%),
+      radial-gradient(at 50% 55%, rgba(255, 248, 243, 0.9) 0px, transparent 65%),
+      radial-gradient(at 80% 85%, rgba(246, 203, 217, 0.55) 0px, transparent 50%),
+      radial-gradient(at 20% 90%, rgba(250, 235, 224, 0.7) 0px, transparent 55%);
+    background-attachment: fixed;
+    color: #2D2424;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    transition: background 0.6s ease-in-out, color 0.3s ease;
+  }
+  
+  html[data-realm="rose"], body[data-realm="rose"] {
+    background-color: #FDF6F0;
+    background-image: 
+      radial-gradient(at 15% 15%, rgba(253, 226, 228, 0.75) 0px, transparent 55%),
+      radial-gradient(at 85% 10%, rgba(254, 217, 203, 0.65) 0px, transparent 50%),
+      radial-gradient(at 50% 55%, rgba(255, 248, 243, 0.9) 0px, transparent 65%),
+      radial-gradient(at 80% 85%, rgba(246, 203, 217, 0.55) 0px, transparent 50%),
+      radial-gradient(at 20% 90%, rgba(250, 235, 224, 0.7) 0px, transparent 55%);
+  }
+
+  html[data-realm="sand"], body[data-realm="sand"] {
+    background-color: #FFFDF7;
+    background-image: 
+      radial-gradient(at 15% 15%, rgba(254, 243, 199, 0.75) 0px, transparent 55%),
+      radial-gradient(at 85% 10%, rgba(253, 230, 138, 0.65) 0px, transparent 50%),
+      radial-gradient(at 50% 55%, rgba(255, 251, 235, 0.9) 0px, transparent 65%),
+      radial-gradient(at 80% 85%, rgba(251, 191, 36, 0.3) 0px, transparent 50%),
+      radial-gradient(at 20% 90%, rgba(254, 215, 170, 0.7) 0px, transparent 55%);
+  }
+
+  html[data-realm="teal"], body[data-realm="teal"] {
+    background-color: #F2FAF8;
+    background-image: 
+      radial-gradient(at 15% 15%, rgba(204, 251, 241, 0.75) 0px, transparent 55%),
+      radial-gradient(at 85% 10%, rgba(167, 243, 208, 0.65) 0px, transparent 50%),
+      radial-gradient(at 50% 55%, rgba(240, 253, 250, 0.9) 0px, transparent 65%),
+      radial-gradient(at 80% 85%, rgba(153, 246, 228, 0.35) 0px, transparent 50%),
+      radial-gradient(at 20% 90%, rgba(209, 250, 229, 0.7) 0px, transparent 55%);
+  }
+
+  html[data-realm="twilight"], body[data-realm="twilight"] {
+    background-color: #16152B;
+    background-image: 
+      radial-gradient(at 15% 15%, rgba(53, 55, 90, 0.75) 0px, transparent 55%),
+      radial-gradient(at 85% 10%, rgba(42, 40, 74, 0.65) 0px, transparent 50%),
+      radial-gradient(at 50% 55%, rgba(22, 21, 43, 0.9) 0px, transparent 65%),
+      radial-gradient(at 80% 85%, rgba(77, 70, 109, 0.35) 0px, transparent 50%),
+      radial-gradient(at 20% 90%, rgba(30, 29, 54, 0.7) 0px, transparent 55%);
+    color: #F3F0FA;
+  }
+
+  ::selection {
+    background-color: rgba(226, 149, 120, 0.3);
+    color: #4A2828;
+  }
+}
+
+.font-serif {
+  font-family: 'Newsreader', Georgia, Cambria, 'Times New Roman', Times, serif;
+}
+
+.font-sans {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Monument Valley Architectural Stone and Glass Styles */
+.monument-stone-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 16px 36px -8px rgba(74, 40, 40, 0.05), 0 4px 12px -2px rgba(226, 149, 120, 0.06);
+}
+
+.monument-tablet {
+  background: #FFFBF7;
+  border: 1px solid #F3E1D5;
+  box-shadow: 0 4px 14px -3px rgba(74, 40, 40, 0.04);
+}
+
+.monument-brass-btn {
+  background: linear-gradient(135deg, #E29578 0%, #D88166 100%);
+  color: #FFF;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 18px -4px rgba(216, 129, 102, 0.35);
+}
+
+.monument-brass-btn:hover {
+  background: linear-gradient(135deg, #EB9E83 0%, #E29578 100%);
+  box-shadow: 0 8px 22px -4px rgba(216, 129, 102, 0.45);
+}
+
+@layer components {
+  .markdown-body {
+    color: #2D2424;
+  }
+  .markdown-body p {
+    margin-bottom: 0.85rem;
+    line-height: 1.75;
+    color: #2D2424 !important;
+  }
+  .markdown-body p:last-child {
+    margin-bottom: 0;
+  }
+  .markdown-body ul {
+    list-style-type: disc;
+    margin-left: 1.25rem;
+    margin-bottom: 0.85rem;
+    color: #2D2424 !important;
+  }
+  .markdown-body ol {
+    list-style-type: decimal;
+    margin-left: 1.25rem;
+    margin-bottom: 0.85rem;
+    color: #2D2424 !important;
+  }
+  .markdown-body li {
+    margin-bottom: 0.35rem;
+    line-height: 1.65;
+    color: #4A3B32 !important;
+  }
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 500;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #2D2424 !important;
+    letter-spacing: -0.015em;
+  }
+  .markdown-body blockquote {
+    border-left: 3px solid #E29578;
+    padding-left: 1rem;
+    color: #5C3D2E !important;
+    font-family: 'Newsreader', Georgia, serif;
+    font-style: italic;
+    margin-top: 0.75rem;
+    margin-bottom: 0.85rem;
+    background: rgba(254, 217, 203, 0.3);
+    border-radius: 0 0.5rem 0.5rem 0;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+  }
+  .markdown-body code {
+    background-color: rgba(254, 217, 203, 0.45);
+    color: #8C3A27 !important;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.375rem;
+    font-size: 0.875em;
+    border: 1px solid rgba(226, 149, 120, 0.3);
+  }
+  .markdown-body strong {
+    color: #1A1412 !important;
+    font-weight: 600;
+  }
+  .markdown-body em {
+    color: #5C3D2E !important;
+  }
+  .markdown-body a {
+    color: #D88166 !important;
+    text-decoration: underline;
+  }
+
+  /* Smooth no-scrollbar utilities */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+
+  /* Sleek sandstone scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(226, 149, 120, 0.3);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(226, 149, 120, 0.5);
+  }
+}

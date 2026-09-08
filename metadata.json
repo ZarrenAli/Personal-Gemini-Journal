@@ -1,0 +1,6 @@
+{
+  "name": "Gemini Journal & Reflections",
+  "description": "User-authenticated multi-turn journaling and reflection application with Cloud Firestore storage, live voice conversations with Gemini, and AI summaries.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
