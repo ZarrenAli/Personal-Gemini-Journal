@@ -41,6 +41,12 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
   useEffect(() => {
     document.documentElement.setAttribute('data-realm', monumentTheme);
     document.body.setAttribute('data-realm', monumentTheme);
+    if (monumentTheme === 'twilight') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    monumentSound.setRealm(monumentTheme);
   }, [monumentTheme]);
 
   const handleGoogleLogin = async () => {
@@ -73,7 +79,6 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
     const next = themes[(themes.indexOf(monumentTheme) + 1) % themes.length];
     setMonumentTheme(next);
     localStorage.setItem('monument_realm_theme', next);
-    monumentSound.playHarmonicResolve();
   };
 
   const scrollToFeatures = () => {
@@ -100,12 +105,12 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
           <div
             className={`flex items-center gap-1.5 backdrop-blur-md py-1.5 px-3 rounded-full border shadow-sm transition-all duration-500 ${
               monumentTheme === 'twilight'
-                ? 'bg-[#1C182F]/90 hover:bg-[#25203D] border-[#3F375E] text-[#E8E2FA]'
+                ? 'bg-[#1C182F]/20 hover:bg-[#25203D]/40 border-[#3F375E] text-[#E8E2FA]'
                 : monumentTheme === 'sand'
-                ? 'bg-white/90 hover:bg-white border-[#EFE3D5] text-stone-800'
+                ? 'bg-white/20 hover:bg-white/40 border-[#EFE3D5] text-stone-800'
                 : monumentTheme === 'teal'
-                ? 'bg-white/90 hover:bg-white border-[#D5EAE2] text-stone-800'
-                : 'bg-white/90 hover:bg-white border-[#F2DDE3] text-stone-800'
+                ? 'bg-white/20 hover:bg-white/40 border-[#D5EAE2] text-stone-800'
+                : 'bg-white/20 hover:bg-white/40 border-[#F2DDE3] text-stone-800'
             }`}
           >
             <button
@@ -204,7 +209,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
               onClick={handleGoogleLogin}
               disabled={loading}
               aria-label="Sign in with Google"
-              className="group relative flex items-center gap-3.5 px-8 py-3.5 rounded-full bg-white/90 hover:bg-white dark:bg-stone-900/90 dark:hover:bg-stone-900 backdrop-blur-2xl border border-white/95 dark:border-stone-700/80 shadow-xl shadow-stone-900/5 hover:shadow-rose-900/15 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-rose-300/50 disabled:opacity-75 disabled:cursor-not-allowed cursor-pointer"
+              className="group relative flex items-center gap-3.5 px-8 py-3.5 rounded-full bg-white/20 hover:bg-white/30 dark:bg-stone-900/20 dark:hover:bg-stone-900/30 backdrop-blur-2xl border border-white/50 dark:border-stone-700/80 shadow-xl shadow-stone-900/5 hover:shadow-rose-900/15 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-rose-300/50 disabled:opacity-75 disabled:cursor-not-allowed cursor-pointer"
             >
               {/* Ambient Glow Aura */}
               <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-rose-400/25 via-amber-300/25 to-teal-400/25 blur-md group-hover:blur-lg transition-all duration-500 -z-10 animate-pulse" />
@@ -289,7 +294,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           
           {/* CARD 1: Gemini AI Depth Reflections */}
-          <div className="group relative rounded-3xl bg-white/70 dark:bg-stone-900/60 backdrop-blur-xl border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+          <div className="group relative rounded-3xl bg-white/10 dark:bg-stone-900/10 backdrop-blur-md border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-rose-100/80 dark:bg-rose-950/50 flex items-center justify-center mb-5 border border-rose-200/60 dark:border-rose-800/40 text-rose-600 dark:text-rose-300 group-hover:scale-105 transition-transform">
                 <Sparkles className="w-6 h-6" />
@@ -311,7 +316,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
           </div>
 
           {/* CARD 2: Live Voice Journaling */}
-          <div className="group relative rounded-3xl bg-white/70 dark:bg-stone-900/60 backdrop-blur-xl border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+          <div className="group relative rounded-3xl bg-white/10 dark:bg-stone-900/10 backdrop-blur-md border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-teal-100/80 dark:bg-teal-950/50 flex items-center justify-center mb-5 border border-teal-200/60 dark:border-teal-800/40 text-teal-600 dark:text-teal-300 group-hover:scale-105 transition-transform">
                 <Mic className="w-6 h-6" />
@@ -333,7 +338,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
           </div>
 
           {/* CARD 3: Emotional Progression & Trends */}
-          <div className="group relative rounded-3xl bg-white/70 dark:bg-stone-900/60 backdrop-blur-xl border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+          <div className="group relative rounded-3xl bg-white/10 dark:bg-stone-900/10 backdrop-blur-md border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-amber-100/80 dark:bg-amber-950/50 flex items-center justify-center mb-5 border border-amber-200/60 dark:border-amber-800/40 text-amber-600 dark:text-amber-300 group-hover:scale-105 transition-transform">
                 <TrendingUp className="w-6 h-6" />
@@ -355,7 +360,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
           </div>
 
           {/* CARD 4: Women & Girls Menstrual Cycle & Hormonal State Tracker */}
-          <div className="group relative rounded-3xl bg-white/70 dark:bg-stone-900/60 backdrop-blur-xl border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+          <div className="group relative rounded-3xl bg-white/10 dark:bg-stone-900/10 backdrop-blur-md border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-rose-100/80 dark:bg-rose-950/50 flex items-center justify-center mb-5 border border-rose-200/60 dark:border-rose-800/40 text-rose-600 dark:text-rose-300 group-hover:scale-105 transition-transform">
                 <Heart className="w-6 h-6" />
@@ -377,7 +382,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
           </div>
 
           {/* CARD 5: 4 Tactile Realm Soundscapes */}
-          <div className="group relative rounded-3xl bg-white/70 dark:bg-stone-900/60 backdrop-blur-xl border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+          <div className="group relative rounded-3xl bg-white/10 dark:bg-stone-900/10 backdrop-blur-md border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-purple-100/80 dark:bg-purple-950/50 flex items-center justify-center mb-5 border border-purple-200/60 dark:border-purple-800/40 text-purple-600 dark:text-purple-300 group-hover:scale-105 transition-transform">
                 <Volume2 className="w-6 h-6" />
@@ -399,7 +404,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
           </div>
 
           {/* CARD 6: 100% Private Sanctuary */}
-          <div className="group relative rounded-3xl bg-white/70 dark:bg-stone-900/60 backdrop-blur-xl border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+          <div className="group relative rounded-3xl bg-white/10 dark:bg-stone-900/10 backdrop-blur-md border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-stone-100/80 dark:bg-stone-800/50 flex items-center justify-center mb-5 border border-stone-200/60 dark:border-stone-700/40 text-stone-700 dark:text-stone-200 group-hover:scale-105 transition-transform">
                 <Shield className="w-6 h-6" />
@@ -423,7 +428,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
         </div>
 
         {/* 3-Step Journey Banner */}
-        <div className="w-full mt-16 p-8 sm:p-10 rounded-3xl bg-white/60 dark:bg-stone-900/50 backdrop-blur-xl border border-white/80 dark:border-stone-800/80 shadow-md">
+        <div className="w-full mt-16 p-8 sm:p-10 rounded-3xl bg-white/10 dark:bg-stone-900/10 backdrop-blur-md border border-white/80 dark:border-stone-800/80 shadow-md">
           <div className="text-center mb-8">
             <h3 className="text-2xl font-serif text-stone-900 dark:text-stone-100 mb-2">
               Your Daily Sanctuary Ritual
@@ -476,7 +481,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
         </div>
 
         {/* BOTTOM CALL TO ACTION CARD */}
-        <div className="w-full mt-12 p-10 sm:p-14 rounded-3xl bg-gradient-to-b from-white/90 to-white/70 dark:from-stone-900/90 dark:to-stone-900/70 backdrop-blur-2xl border border-white dark:border-stone-700/80 shadow-xl text-center flex flex-col items-center">
+        <div className="w-full mt-12 p-10 sm:p-14 rounded-3xl bg-gradient-to-b from-white/20 to-white/10 dark:from-stone-900/20 dark:to-stone-900/10 backdrop-blur-md border border-white/50 dark:border-stone-700/80 shadow-xl text-center flex flex-col items-center">
           <div className="w-12 h-12 rounded-full bg-rose-500/10 dark:bg-purple-500/10 text-rose-500 dark:text-purple-400 flex items-center justify-center mb-4">
             <HeartHandshake className="w-6 h-6" />
           </div>

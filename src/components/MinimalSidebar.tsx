@@ -74,10 +74,10 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
     <nav
       id="minimal-workspace-sidebar"
       aria-label="Monument Workspace Navigation"
-      className={`w-16 md:w-18 h-full ${theme.sidebarBg} border-r ${theme.sidebarBorder} flex flex-col items-center justify-between py-5 z-40 shrink-0 select-none shadow-xs transition-colors duration-300`}
+      className={`fixed bottom-0 left-0 w-full h-16 md:relative md:w-18 md:h-full ${theme.sidebarBg} border-t md:border-t-0 md:border-r ${theme.sidebarBorder} flex flex-row md:flex-col items-center justify-between px-2 sm:px-4 md:px-0 md:py-5 z-50 shrink-0 select-none shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-xs transition-colors duration-300 backdrop-blur-3xl`}
     >
       {/* Top Monument Navigation Actions */}
-      <div className="flex flex-col items-center gap-4 w-full">
+      <div className="flex flex-row md:flex-col items-center gap-1 sm:gap-2 md:gap-4 w-auto md:w-full">
         {/* Quick New Reflection / Inscription */}
         <div className="relative group">
           <button
@@ -89,17 +89,14 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
           >
             <Plus className="w-5 h-5 stroke-[2.5]" />
           </button>
-          <div className="absolute left-16 top-2 px-2.5 py-1 rounded-xl bg-white/95 border border-stone-200 text-[11px] font-serif text-stone-900 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 backdrop-blur-md">
-            Inscribe Reflection
-          </div>
         </div>
 
-        <div className="w-6 h-px bg-stone-300/60 my-0.5" />
+        <div className="hidden md:block w-6 h-px bg-stone-300/60 my-0.5" />
 
         {/* Functional Nav Items Stack */}
-        <div className="flex flex-col items-center gap-3 w-full">
+        <div className="flex flex-row md:flex-col items-center gap-1 sm:gap-2 md:gap-3 w-auto md:w-full overflow-x-auto no-scrollbar px-1 md:px-0">
           {/* Past Reflections Drawer Toggle */}
-          <div className="relative group w-full flex justify-center">
+          <div className="relative group w-auto md:w-full flex justify-center shrink-0">
             <button
               id="nav-history-drawer-btn"
               type="button"
@@ -113,13 +110,10 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
             >
               <Layers className="w-5 h-5" />
             </button>
-            <div className="absolute left-16 top-2 px-2.5 py-1 rounded-xl bg-white/95 border border-stone-200 text-[11px] font-serif text-stone-900 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 backdrop-blur-md">
-              {isHistoryOpen ? 'Hide Reflection Chambers' : 'View Reflection Chambers'}
-            </div>
           </div>
 
           {/* Live Voice Companion */}
-          <div className="relative group w-full flex justify-center">
+          <div className="relative group w-auto md:w-full flex justify-center shrink-0">
             <button
               id="nav-voice-modal-btn"
               type="button"
@@ -129,13 +123,10 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
             >
               <Mic className="w-5 h-5" />
             </button>
-            <div className="absolute left-16 top-2 px-2.5 py-1 rounded-xl bg-white/95 border border-stone-200 text-[11px] font-serif text-stone-900 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 backdrop-blur-md">
-              Whispering Totem (Live Voice)
-            </div>
           </div>
 
           {/* Wellbeing & Emotional Progression Dashboard */}
-          <div className="relative group w-full flex justify-center">
+          <div className="relative group w-auto md:w-full flex justify-center shrink-0">
             <button
               id="nav-wellbeing-dashboard-btn"
               type="button"
@@ -149,14 +140,11 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
             >
               <Activity className="w-5 h-5" />
             </button>
-            <div className="absolute left-16 top-2 px-2.5 py-1 rounded-xl bg-white/95 border border-stone-200 text-[11px] font-serif text-stone-900 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 backdrop-blur-md">
-              Emotional Climates
-            </div>
           </div>
 
           {/* Mindful Cycle Companion Tab */}
           {cycleEnabled && (
-            <div className="relative group w-full flex justify-center animate-fade-in">
+            <div className="relative group w-auto md:w-full flex justify-center animate-fade-in shrink-0">
               <button
                 id="nav-cycle-companion-btn"
                 type="button"
@@ -170,16 +158,13 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
               >
                 <Heart className={`w-5 h-5 ${theme.textAccent}`} />
               </button>
-              <div className="absolute left-16 top-2 px-2.5 py-1 rounded-xl bg-white/95 border border-stone-200 text-[11px] font-serif text-stone-900 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 backdrop-blur-md">
-                Lunar &amp; Rhythm Almanac
-              </div>
             </div>
           )}
 
 
 
           {/* Settings Modal Toggle */}
-          <div className="relative group w-full flex justify-center">
+          <div className="relative group w-auto md:w-full flex justify-center shrink-0">
             <button
               id="nav-settings-btn"
               type="button"
@@ -192,15 +177,12 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
             >
               <Settings className="w-5 h-5" />
             </button>
-            <div className="absolute left-16 top-2 px-2.5 py-1 rounded-xl bg-white/95 border border-stone-200 text-[11px] font-serif text-stone-900 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 backdrop-blur-md">
-              Chamber Settings
-            </div>
           </div>
         </div>
       </div>
 
       {/* Bottom User Avatar & Logout */}
-      <div className={`flex flex-col items-center gap-3 w-full pt-4 border-t ${theme.sidebarBorder}`}>
+      <div className={`flex flex-row md:flex-col items-center gap-2 md:gap-3 w-auto pt-0 pl-2 md:pl-0 md:pt-4 border-l md:border-l-0 md:border-t ${theme.sidebarBorder} shrink-0`}>
         {/* User Avatar */}
         <div className="relative group">
           {user.photoURL ? (
@@ -215,10 +197,6 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
               {user.displayName ? user.displayName.charAt(0).toUpperCase() : <Compass className="w-4 h-4" />}
             </div>
           )}
-          <div className="absolute left-16 bottom-2 px-2.5 py-1 rounded-xl bg-white/95 border border-stone-200 text-[11px] font-serif text-stone-900 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 backdrop-blur-md">
-            <p className="font-semibold">{user.displayName || 'Silent Wanderer'}</p>
-            <p className="text-stone-500 text-[10px] font-sans">{user.email}</p>
-          </div>
         </div>
 
         {/* Sign Out */}
@@ -235,9 +213,6 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
           >
             <LogOut className="w-4 h-4" />
           </button>
-          <div className="absolute left-16 bottom-2 px-2.5 py-1 rounded-xl bg-white/95 border border-stone-200 text-[11px] font-serif text-stone-900 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 backdrop-blur-md">
-            Depart Chamber
-          </div>
         </div>
       </div>
     </nav>

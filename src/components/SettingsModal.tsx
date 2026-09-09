@@ -103,7 +103,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
 
         {/* Mindful Cycle Companion Toggle */}
-        <div className={`p-4 rounded-2xl bg-white/70 border ${theme.cardBorder} space-y-4`}>
+        <div className={`p-4 rounded-2xl bg-white/10 backdrop-blur-md border ${theme.cardBorder} space-y-4`}>
           <div className="flex items-center justify-between">
             <div className="flex items-start gap-3">
               <div className={`w-8 h-8 rounded-xl ${theme.accentIconBg} border ${theme.accentIconBorder} flex items-center justify-center ${theme.accentIconColor} shrink-0 mt-0.5`}>
@@ -156,7 +156,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         averageCycleLength: parseInt(e.target.value) || 28,
                       })
                     }
-                    className={`w-full px-3 py-2 rounded-xl bg-white border ${theme.cardBorder} ${theme.textPrimary} focus:outline-hidden`}
+                    className={`w-full px-3 py-2 rounded-xl ${theme.inputBg} border ${theme.inputBorder} ${theme.textPrimary} ${theme.inputFocus}`}
                   />
                 </div>
 
@@ -174,7 +174,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         averagePeriodLength: parseInt(e.target.value) || 5,
                       })
                     }
-                    className={`w-full px-3 py-2 rounded-xl bg-white border ${theme.cardBorder} ${theme.textPrimary} focus:outline-hidden`}
+                    className={`w-full px-3 py-2 rounded-xl ${theme.inputBg} border ${theme.inputBorder} ${theme.textPrimary} ${theme.inputFocus}`}
                   />
                 </div>
               </div>
@@ -191,7 +191,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       lastPeriodStartDate: e.target.value,
                     })
                   }
-                  className={`w-full px-3 py-2 rounded-xl bg-white border ${theme.cardBorder} ${theme.textPrimary} text-xs focus:outline-hidden`}
+                  className={`w-full px-3 py-2 rounded-xl ${theme.inputBg} border ${theme.inputBorder} ${theme.textPrimary} text-xs ${theme.inputFocus}`}
                 />
               </div>
             </div>

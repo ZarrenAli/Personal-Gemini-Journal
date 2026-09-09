@@ -28,6 +28,7 @@ import { SummaryModal } from './SummaryModal';
 import { VoiceJournalModal } from './VoiceJournalModal';
 import { MonumentValleyCanvas } from './MonumentValleyCanvas';
 import { RealmAtmosphereCanvas } from './RealmAtmosphereCanvas';
+import { MonumentChimeToggle } from './MonumentChimeToggle';
 import { requestSummary } from '../lib/geminiApi';
 import {
   getUserPreferences,
@@ -58,11 +59,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     }
     return 'sand';
   });
+  
+  const [isMuted, setIsMuted] = useState(monumentSound.getMuted());
 
-  // Synchronize dynamic realm theme on document root
+  // Synchronize dynamic realm theme on document root and update audio track
   useEffect(() => {
     document.documentElement.setAttribute('data-realm', monumentTheme);
     document.body.setAttribute('data-realm', monumentTheme);
+    if (monumentTheme === 'twilight') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    monumentSound.setRealm(monumentTheme);
   }, [monumentTheme]);
 
   // Cycle realm atmosphere helper (Monument Valley palette homage)
@@ -71,15 +80,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     const next = themes[(themes.indexOf(monumentTheme) + 1) % themes.length];
     setMonumentTheme(next);
     localStorage.setItem('monument_realm_theme', next);
-    monumentSound.playHarmonicResolve();
-    showToast(`Switched atmosphere to ${next.charAt(0).toUpperCase() + next.slice(1)} realm.`, 'info');
   };
 
   const handleSelectTheme = (theme: 'rose' | 'twilight' | 'sand' | 'teal') => {
     setMonumentTheme(theme);
     localStorage.setItem('monument_realm_theme', theme);
-    monumentSound.playHarmonicResolve();
-    showToast(`Atmosphere set to ${theme.charAt(0).toUpperCase() + theme.slice(1)} realm.`, 'info');
   };
 
   // Journal Entries State
@@ -431,8 +436,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
         onLogout={onLogout}
       />
 
-      {/* Top Floating Realm Switcher (Theme-aware capsule) */}
-      <div className="absolute top-3.5 right-4 sm:top-4 sm:right-6 z-30 flex items-center gap-2 pointer-events-auto">
+      {/* Top Floating Controls */}
+      <div className={`absolute top-3 right-3 sm:top-7 sm:right-6 z-30 flex items-center gap-2 sm:gap-3 pointer-events-auto transition-opacity duration-300 ${isHistoryOpen ? 'opacity-0 lg:opacity-100 pointer-events-none lg:pointer-events-auto' : 'opacity-100'}`}>
+        <div className="bg-white/70 backdrop-blur-md rounded-full shadow-2xs p-1 sm:p-1.5 border border-white/50 flex items-center justify-center scale-90 sm:scale-100">
+          <MonumentChimeToggle 
+            muted={isMuted} 
+            onToggleMute={(muted) => setIsMuted(muted)} 
+          />
+        </div>
         <button
           id="workspace-cycle-realm-btn"
           type="button"
@@ -460,12 +471,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
                       : '#E11D48',
             }}
           />
-          <span className="font-medium">{monumentTheme} Realm</span>
+          <span className="font-medium hidden sm:inline">{monumentTheme} Realm</span>
+          <span className="font-medium sm:hidden">Realm</span>
         </button>
       </div>
 
       {/* Main Workspace Frame */}
-      <div className="flex-1 flex h-full overflow-hidden relative z-10">
+      <div className="flex-1 flex h-full overflow-hidden relative z-10 pb-16 md:pb-0">
         {/* Past Reflections Drawer (Collapsible) */}
         {activeTab === 'journal' && (
           <div
@@ -484,27 +496,27 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
         )}
 
         {/* Mobile Reflections Drawer */}
-        {isMobileDrawerOpen && (
-          <div className="fixed inset-0 z-40 lg:hidden flex">
+        {isHistoryOpen && (
+          <div className="fixed inset-0 z-[60] lg:hidden flex">
             <div
-              className="fixed inset-0 bg-stone-950/20 backdrop-blur-xs"
-              onClick={() => setIsMobileDrawerOpen(false)}
+              className="absolute inset-0 bg-stone-900/40 backdrop-blur-sm"
+              onClick={() => setIsHistoryOpen(false)}
             />
-            <div className="relative z-50 h-full w-80 max-w-[85vw]">
+            <div className={`relative w-[85%] max-w-sm h-full ${theme.sidebarBg} shadow-2xl animate-slide-in-left backdrop-blur-3xl`}>
               <EntryHistory
                 entries={entries}
                 selectedEntryId={selectedEntryId}
                 onSelectEntry={(id) => {
                   setSelectedEntryId(id);
-                  setIsMobileDrawerOpen(false);
+                  setIsHistoryOpen(false);
                 }}
                 onNewEntry={() => {
                   handleCreateNewEntry();
-                  setIsMobileDrawerOpen(false);
+                  setIsHistoryOpen(false);
                 }}
                 onDeleteEntry={handleRequestDelete}
-                onCloseMobileDrawer={() => setIsMobileDrawerOpen(false)}
                 monumentTheme={monumentTheme}
+                onCloseMobileDrawer={() => setIsHistoryOpen(false)}
               />
             </div>
           </div>

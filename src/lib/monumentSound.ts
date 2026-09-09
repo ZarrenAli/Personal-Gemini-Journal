@@ -11,6 +11,40 @@ class MonumentSoundEngine {
     185.0, 207.65, 233.08, 277.18, 311.13, 369.99, 415.3, 466.16, 554.37, 622.25, 739.99
   ];
   private lastNoteIndex: number = 2;
+  
+  private hasInteracted: boolean = false;
+  private bgAudio: HTMLAudioElement | null = null;
+  private currentRealm: string = 'sand';
+  private loadedTrack: string = '';
+  private audioMap: Record<string, string> = {
+    'rose': '/bg-music/Rose_Realm_The-Spire.mp3',
+    'sand': '/bg-music/Sand_Realm_The-Descent.mp3',
+    'teal': '/bg-music/Teal_Realm_Hidden-Temple.mp3',
+    'twilight': '/bg-music/Twilight_Realm_The-Labyrinth.mp3',
+  };
+
+  constructor() {
+    this.setupAutoplayListeners();
+  }
+
+  private setupAutoplayListeners() {
+    if (typeof window === 'undefined') return;
+    const enableAudio = () => {
+      if (!this.hasInteracted) {
+        this.hasInteracted = true;
+        this.init();
+        if (!this.isMuted) {
+          this.startAmbiance();
+        }
+      }
+      window.removeEventListener('click', enableAudio);
+      window.removeEventListener('touchstart', enableAudio);
+      window.removeEventListener('keydown', enableAudio);
+    };
+    window.addEventListener('click', enableAudio);
+    window.addEventListener('touchstart', enableAudio);
+    window.addEventListener('keydown', enableAudio);
+  }
 
   private init() {
     if (!this.ctx && typeof window !== 'undefined') {
@@ -26,6 +60,29 @@ class MonumentSoundEngine {
 
   public setMuted(muted: boolean) {
     this.isMuted = muted;
+    if (muted) {
+      this.stopAmbiance();
+    } else if (this.hasInteracted) {
+      this.startAmbiance();
+    }
+  }
+
+  public setRealm(realm: string) {
+    if (this.currentRealm === realm) return;
+    this.currentRealm = realm;
+    
+    // Aggressively update the audio track if we've interacted
+    if (this.hasInteracted && !this.isMuted) {
+      this.startAmbiance();
+    } else if (this.bgAudio) {
+      // Just load it in the background so it's ready
+      const trackPath = this.audioMap[this.currentRealm] || this.audioMap['sand'];
+      if (this.loadedTrack !== trackPath) {
+        this.bgAudio.src = trackPath;
+        this.bgAudio.load();
+        this.loadedTrack = trackPath;
+      }
+    }
   }
 
   public getMuted(): boolean {
@@ -133,6 +190,39 @@ class MonumentSoundEngine {
       });
     } catch {
       // Ignore
+    }
+  }
+
+  // Continuous background ambient loop using MP3 files
+  public startAmbiance() {
+    if (this.isMuted || typeof window === 'undefined') return;
+    
+    const trackPath = this.audioMap[this.currentRealm] || this.audioMap['sand'];
+    
+    if (!this.bgAudio) {
+      this.bgAudio = new Audio(trackPath);
+      this.bgAudio.loop = true;
+      this.bgAudio.volume = 0.4; // Soft background volume
+      this.loadedTrack = trackPath;
+    } else if (this.loadedTrack !== trackPath) {
+      this.bgAudio.pause();
+      this.bgAudio.src = trackPath;
+      this.bgAudio.load();
+      this.loadedTrack = trackPath;
+    }
+    
+    // Always attempt to play
+    const playPromise = this.bgAudio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Ignore autoplay block
+      });
+    }
+  }
+
+  public stopAmbiance() {
+    if (this.bgAudio) {
+      this.bgAudio.pause();
     }
   }
 }

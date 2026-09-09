@@ -270,28 +270,7 @@ export const CycleCompanion: React.FC<CycleCompanionProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          {/* Date Picker */}
-          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/90 border ${theme.cardBorder} text-xs shadow-2xs`}>
-            <Calendar className={`w-3.5 h-3.5 ${theme.accentIconColor}`} />
-            <input
-              id="cycle-date-selector"
-              type="date"
-              value={selectedDate}
-              onChange={(e) => handleDateChange(e.target.value)}
-              className={`bg-transparent ${theme.textPrimary} focus:outline-hidden cursor-pointer font-sans`}
-            />
-          </div>
 
-          <button
-            id="open-cycle-settings-btn"
-            type="button"
-            onClick={onOpenSettings}
-            className={`px-3.5 py-1.5 rounded-xl ${theme.secondaryBtn} text-xs font-medium transition-colors cursor-pointer shadow-2xs`}
-          >
-            Settings
-          </button>
-        </div>
       </div>
 
       {/* Phase Visualization Ring & Overview */}

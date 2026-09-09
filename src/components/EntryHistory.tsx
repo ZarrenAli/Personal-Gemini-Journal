@@ -54,7 +54,7 @@ export const EntryHistory: React.FC<EntryHistoryProps> = ({
   });
 
   const MOOD_FILTERS: { id: 'all' | MoodCategoryType; label: string }[] = [
-    { id: 'all', label: 'All Monuments' },
+    { id: 'all', label: 'All Entries' },
     { id: 'calm', label: 'Calm' },
     { id: 'uplifted', label: 'Joy' },
     { id: 'reflective', label: 'Reflective' },
@@ -77,14 +77,14 @@ export const EntryHistory: React.FC<EntryHistoryProps> = ({
   return (
     <aside
       id="entry-history-sidebar"
-      className={`w-80 border-r ${theme.sidebarBorder} ${theme.sidebarBg} flex flex-col h-full shrink-0 text-stone-900 select-none shadow-xs transition-colors duration-300`}
+      className={`w-full border-r ${theme.sidebarBorder} ${theme.sidebarBg} flex flex-col h-full shrink-0 text-stone-900 select-none shadow-xs transition-colors duration-300`}
     >
       {/* Search and New Monument Inscription Header */}
       <div className={`p-3.5 sm:p-4 border-b ${theme.sidebarBorder} space-y-2.5 bg-white/40`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-xs font-serif font-semibold tracking-wider text-stone-900 uppercase">
-              Monument Library
+              Journal Library
             </span>
             <span className={`px-2 py-0.5 rounded-full text-[10px] ${theme.accentBadge} font-mono font-medium`}>
               {entries.length}
@@ -100,7 +100,7 @@ export const EntryHistory: React.FC<EntryHistoryProps> = ({
                 onNewEntry();
               }}
               className="p-1.5 rounded-xl bg-white hover:bg-stone-50 text-stone-800 border border-stone-200 transition-all cursor-pointer shadow-2xs active:scale-95"
-              title="Carve New Reflection Tablet"
+              title="Write New Entry"
             >
               <Plus className="w-4 h-4 text-stone-700" />
             </button>
@@ -126,7 +126,7 @@ export const EntryHistory: React.FC<EntryHistoryProps> = ({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search tablets & memories..."
+            placeholder="Search entries..."
             className={`w-full pl-9 pr-3 py-1.5 rounded-xl ${theme.inputBg} border ${theme.inputBorder} text-xs text-stone-900 placeholder:text-stone-400 ${theme.inputFocus} transition-all shadow-2xs`}
           />
         </div>
@@ -159,7 +159,7 @@ export const EntryHistory: React.FC<EntryHistoryProps> = ({
           <div className="text-center py-12 px-4 text-stone-400 text-xs font-serif">
             {searchQuery || selectedMoodFilter !== 'all' ? (
               <div className="space-y-2">
-                <p>No sacred tablets match your current query.</p>
+                <p>No entries match your current query.</p>
                 <button
                   type="button"
                   onClick={() => {
@@ -173,7 +173,7 @@ export const EntryHistory: React.FC<EntryHistoryProps> = ({
               </div>
             ) : (
               <div className="space-y-3">
-                <p>No reflections recorded in this chamber yet.</p>
+                <p>No entries recorded yet.</p>
                 <button
                   type="button"
                   onClick={() => {
@@ -182,7 +182,7 @@ export const EntryHistory: React.FC<EntryHistoryProps> = ({
                   }}
                   className="px-3.5 py-1.5 rounded-xl bg-stone-900 text-amber-200 text-xs hover:bg-stone-800 shadow-xs border border-amber-400/20 cursor-pointer font-serif"
                 >
-                  Inscribe your first tablet
+                  Write your first entry
                 </button>
               </div>
             )}
@@ -228,7 +228,7 @@ export const EntryHistory: React.FC<EntryHistoryProps> = ({
                           isSelected ? `${theme.textPrimary} font-semibold` : 'text-stone-900 font-medium'
                         }`}
                       >
-                        {item.title || 'Untitled Chamber'}
+                        {item.title || 'Untitled Entry'}
                       </h3>
 
                       {/* Delete Entry Button with Confirmation Modal Trigger */}
@@ -238,9 +238,9 @@ export const EntryHistory: React.FC<EntryHistoryProps> = ({
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          onDeleteEntry(item.id, item.title || 'Untitled Chamber', e);
+                          onDeleteEntry(item.id, item.title || 'Untitled Entry', e);
                         }}
-                        title="Dismantle Tablet"
+                        title="Delete Entry"
                         className="p-1 rounded-lg text-stone-300 hover:text-rose-700 hover:bg-rose-50 opacity-70 sm:opacity-0 group-hover:opacity-100 transition-all cursor-pointer shrink-0"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

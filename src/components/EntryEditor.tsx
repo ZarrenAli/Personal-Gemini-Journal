@@ -374,7 +374,7 @@ export const EntryEditor: React.FC<EntryEditorProps> = ({
   return (
     <div className={`flex-1 flex flex-col h-full bg-white/40 backdrop-blur-2xl ${theme.textPrimary} overflow-hidden transition-colors duration-300`}>
       {/* Top Meta Bar */}
-      <div className={`px-6 py-4 border-b ${theme.cardBorder} bg-white/60 backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0 shadow-xs`}>
+      <div className={`px-6 pr-24 sm:pr-52 py-4 border-b ${theme.cardBorder} bg-white/60 backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0 shadow-xs`}>
         <div className="flex-1 min-w-0">
           {isEditingTitle ? (
             <input
@@ -425,7 +425,8 @@ export const EntryEditor: React.FC<EntryEditorProps> = ({
                   title={entry.sentimentSummary || `Detected Mood: ${entry.sentiment}`}
                 >
                   <span className={`w-1.5 h-1.5 rounded-full ${getMoodVisual(entry.sentiment, entry.moodCategory).dotColor}`} />
-                  <span>{entry.sentiment}</span>
+                  <span className="hidden sm:inline">{entry.sentiment}</span>
+                  <span className="sm:hidden">{entry.sentiment.substring(0, 5)}</span>
                   {entry.sentimentScore !== undefined && (
                     <span className="text-[10px] opacity-75 font-mono">({entry.sentimentScore}%)</span>
                   )}
@@ -447,7 +448,8 @@ export const EntryEditor: React.FC<EntryEditorProps> = ({
                 title="View Gemini Sentiment and Reflection Synthesis"
               >
                 <FileText className={`w-3.5 h-3.5 ${theme.textAccent}`} />
-                <span>AI Sentiment & Summary</span>
+                <span className="hidden sm:inline">AI Sentiment & Summary</span>
+                <span className="sm:hidden">AI</span>
               </button>
 
               <button
@@ -483,7 +485,8 @@ export const EntryEditor: React.FC<EntryEditorProps> = ({
               ) : (
                 <Sparkles className={`w-3.5 h-3.5 ${theme.textAccent}`} />
               )}
-              <span>{isSummarizing ? 'Analyzing...' : 'Analyze Sentiment'}</span>
+              <span className="hidden sm:inline">{isSummarizing ? 'Analyzing...' : 'Analyze Sentiment'}</span>
+              <span className="sm:hidden">{isSummarizing ? 'Analzying' : 'Analyze'}</span>
             </button>
           )}
 
