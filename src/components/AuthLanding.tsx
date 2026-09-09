@@ -33,9 +33,9 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
   const [monumentTheme, setMonumentTheme] = useState<'rose' | 'twilight' | 'sand' | 'teal'>(() => {
     const saved = localStorage.getItem('monument_realm_theme');
     if (saved === 'rose' || saved === 'twilight' || saved === 'sand' || saved === 'teal') {
-      return saved;
+      return saved as any;
     }
-    return 'rose';
+    return 'sand';
   });
 
   useEffect(() => {

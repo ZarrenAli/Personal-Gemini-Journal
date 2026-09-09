@@ -102,7 +102,12 @@ export const VoiceJournalModal: React.FC<VoiceJournalModalProps> = ({
 
       // 2. Setup WebSocket connection to /api/live
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsUrl = `${protocol}//${window.location.host}/api/live`;
+      const host = window.location.hostname;
+      const isDev = import.meta.env.DEV;
+      const apiPort = import.meta.env.VITE_API_PORT || '3000';
+      const wsUrl = isDev 
+        ? `${protocol}//${host}:${apiPort}/api/live` 
+        : `${protocol}//${window.location.host}/api/live`;
       const ws = new WebSocket(wsUrl);
       wsRef.current = ws;
 

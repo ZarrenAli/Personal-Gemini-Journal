@@ -878,97 +878,66 @@ export const RealmAtmosphereCanvas: React.FC<RealmAtmosphereCanvasProps> = ({
         boatX = -80;
       }
 
-      // 3 Layered undulating oceanic swells
+      // 6 Layered undulating oceanic swells for increased depth
       const wavesConfig = [
-        { yOffset: 35, amp: 12, freq: 0.005, speed: 1.2, color: 'rgba(250, 152, 132, 0.25)', foamColor: 'rgba(255, 255, 255, 0.35)' },
-        { yOffset: 15, amp: 16, freq: 0.007, speed: 1.6, color: 'rgba(231, 158, 133, 0.30)', foamColor: 'rgba(255, 255, 255, 0.45)' },
-        { yOffset: -5, amp: 20, freq: 0.009, speed: 2.1, color: 'rgba(255, 229, 202, 0.38)', foamColor: 'rgba(255, 255, 255, 0.65)' },
+        { yOffset: -15, amp: 10, freq: 0.004, speed: 0.8, color: 'rgba(250, 152, 132, 0.15)', foamColor: 'rgba(255, 255, 255, 0.15)' },
+        { yOffset: -5, amp: 14, freq: 0.005, speed: 1.1, color: 'rgba(250, 152, 132, 0.25)', foamColor: 'rgba(255, 255, 255, 0.25)' },
+        { yOffset: 5, amp: 18, freq: 0.006, speed: 1.4, color: 'rgba(240, 155, 133, 0.30)', foamColor: 'rgba(255, 255, 255, 0.35)' },
+        { yOffset: 15, amp: 22, freq: 0.007, speed: 1.7, color: 'rgba(231, 158, 133, 0.35)', foamColor: 'rgba(255, 255, 255, 0.45)' },
+        { yOffset: 25, amp: 26, freq: 0.008, speed: 2.0, color: 'rgba(245, 190, 160, 0.38)', foamColor: 'rgba(255, 255, 255, 0.55)' },
+        { yOffset: 35, amp: 30, freq: 0.009, speed: 2.3, color: 'rgba(255, 229, 202, 0.42)', foamColor: 'rgba(255, 255, 255, 0.70)' },
       ];
 
-      // Layer 0: Background Deep Swell
-      const w0 = wavesConfig[0];
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, height);
-      for (let x = 0; x <= width; x += 15) {
-        const y =
-          baseWaveY +
-          w0.yOffset +
-          Math.sin(x * w0.freq + waveTime * w0.speed) * w0.amp +
-          Math.cos(x * w0.freq * 0.5 + waveTime * 0.7) * (w0.amp * 0.5);
-        ctx.lineTo(x, y);
-      }
-      ctx.lineTo(width, height);
-      ctx.closePath();
-      ctx.fillStyle = w0.color;
-      ctx.fill();
-      ctx.restore();
+      wavesConfig.forEach((w, index) => {
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(0, height);
 
-      // Layer 1: Middle Swell
-      const w1 = wavesConfig[1];
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, height);
-      for (let x = 0; x <= width; x += 15) {
-        const y =
-          baseWaveY +
-          w1.yOffset +
-          Math.sin(x * w1.freq + waveTime * w1.speed) * w1.amp +
-          Math.cos(x * w1.freq * 0.5 + waveTime * 0.7) * (w1.amp * 0.5);
-        ctx.lineTo(x, y);
-      }
-      ctx.lineTo(width, height);
-      ctx.closePath();
-      ctx.fillStyle = w1.color;
-      ctx.fill();
-      ctx.restore();
+        // Draw Wave Fill
+        for (let x = 0; x <= width; x += 15) {
+          const y =
+            baseWaveY +
+            w.yOffset +
+            Math.sin(x * w.freq + waveTime * w.speed) * w.amp +
+            Math.cos(x * w.freq * 0.5 + waveTime * 0.7) * (w.amp * 0.5);
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(width, height);
+        ctx.closePath();
+        ctx.fillStyle = w.color;
+        ctx.fill();
 
-      // --- Draw Monument Valley Boat on Middle Swell ---
-      const boatWaveY =
-        baseWaveY +
-        w1.yOffset +
-        Math.sin(boatX * w1.freq + waveTime * w1.speed) * w1.amp +
-        Math.cos(boatX * w1.freq * 0.5 + waveTime * 0.7) * (w1.amp * 0.5);
-      const waveSlope =
-        Math.cos(boatX * w1.freq + waveTime * w1.speed) * (w1.amp * w1.freq) -
-        Math.sin(boatX * w1.freq * 0.5 + waveTime * 0.7) * (w1.amp * 0.5 * w1.freq * 0.5);
-      const boatPitch = Math.atan(waveSlope) * 0.85 + Math.sin(waveTime * 2.2) * 0.04;
+        // Draw Foam Line for this wave
+        ctx.beginPath();
+        for (let x = 0; x <= width; x += 15) {
+          const y =
+            baseWaveY +
+            w.yOffset +
+            Math.sin(x * w.freq + waveTime * w.speed) * w.amp +
+            Math.cos(x * w.freq * 0.5 + waveTime * 0.7) * (w.amp * 0.5);
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = w.foamColor;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
 
-      drawMonumentBoat(boatX, boatWaveY, boatPitch);
+        // Draw Monument Valley Boat on a middle swell
+        if (index === 3) {
+          const boatWaveY =
+            baseWaveY +
+            w.yOffset +
+            Math.sin(boatX * w.freq + waveTime * w.speed) * w.amp +
+            Math.cos(boatX * w.freq * 0.5 + waveTime * 0.7) * (w.amp * 0.5);
+          const waveSlope =
+            Math.cos(boatX * w.freq + waveTime * w.speed) * (w.amp * w.freq) -
+            Math.sin(boatX * w.freq * 0.5 + waveTime * 0.7) * (w.amp * 0.5 * w.freq * 0.5);
+          const boatPitch = Math.atan(waveSlope) * 0.85 + Math.sin(waveTime * 2.2) * 0.04;
 
-      // Layer 2: Foreground Swell (Lapping naturally against lower hull)
-      const w2 = wavesConfig[2];
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, height);
-      for (let x = 0; x <= width; x += 15) {
-        const y =
-          baseWaveY +
-          w2.yOffset +
-          Math.sin(x * w2.freq + waveTime * w2.speed) * w2.amp +
-          Math.cos(x * w2.freq * 0.5 + waveTime * 0.7) * (w2.amp * 0.5);
-        ctx.lineTo(x, y);
-      }
-      ctx.lineTo(width, height);
-      ctx.closePath();
-      ctx.fillStyle = w2.color;
-      ctx.fill();
-
-      // Foreground Wave Crest Foam Line
-      ctx.beginPath();
-      for (let x = 0; x <= width; x += 15) {
-        const y =
-          baseWaveY +
-          w2.yOffset +
-          Math.sin(x * w2.freq + waveTime * w2.speed) * w2.amp +
-          Math.cos(x * w2.freq * 0.5 + waveTime * 0.7) * (w2.amp * 0.5);
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.strokeStyle = w2.foamColor;
-      ctx.lineWidth = 1.8;
-      ctx.stroke();
-      ctx.restore();
+          drawMonumentBoat(boatX, boatWaveY, boatPitch);
+        }
+      });
     };
 
     let lastTime = performance.now();

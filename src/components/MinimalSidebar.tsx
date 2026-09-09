@@ -176,26 +176,7 @@ export const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
             </div>
           )}
 
-          {/* Monument Atmosphere Realm Switcher */}
-          <div className="relative group w-full flex justify-center">
-            <button
-              id="sidebar-realm-btn"
-              type="button"
-              onClick={() => {
-                onCycleTheme();
-              }}
-              className={`w-10 h-10 rounded-2xl flex items-center justify-center text-stone-600 ${theme.sidebarHover} transition-all cursor-pointer relative`}
-              title={`Switch Realm (Current: ${theme.name})`}
-            >
-              <Compass className={`w-5 h-5 ${theme.textAccent} animate-spin-slow`} />
-              <span
-                className={`absolute bottom-1 right-1 w-2 h-2 rounded-full border border-white shadow-2xs ${theme.accentDot}`}
-              />
-            </button>
-            <div className="absolute left-16 top-2 px-2.5 py-1 rounded-xl bg-white/95 border border-stone-200 text-[11px] font-serif text-stone-900 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 backdrop-blur-md capitalize">
-              Realm: {theme.name} (Click to Cycle)
-            </div>
-          </div>
+
 
           {/* Settings Modal Toggle */}
           <div className="relative group w-full flex justify-center">

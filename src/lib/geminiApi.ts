@@ -11,6 +11,8 @@ export async function requestReflection(params: {
   conversationHistory: JournalMessage[];
   reflectionMode: ReflectionMode;
   title: string;
+  previousEntriesContext?: string;
+  cycleLogsContext?: string;
 }): Promise<ReflectResponse> {
   const response = await fetch('/api/gemini/reflect', {
     method: 'POST',

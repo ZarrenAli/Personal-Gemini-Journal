@@ -10,7 +10,7 @@ dotenv.config();
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.VITE_API_PORT ? parseInt(process.env.VITE_API_PORT, 10) : 3000;
 
   // 1. Top-Level Request Deserialization (Ordering Guarantee)
   app.use(express.json({ limit: '5mb' }));
@@ -93,6 +93,8 @@ async function startServer() {
         conversationHistory = [],
         reflectionMode = 'insight',
         title = 'Untitled Reflection',
+        previousEntriesContext = '',
+        cycleLogsContext = '',
       } = data;
 
       if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
@@ -118,7 +120,7 @@ async function startServer() {
           break;
       }
 
-      const systemInstruction = `You are Gemini Reflection Companion, an empathetic, intellectually rigorous, and supportive journaling partner.
+      let systemInstruction = `You are Gemini Reflection Companion, an empathetic, intellectually rigorous, and supportive journaling partner.
 Your role is to help the user unpack their thoughts, feelings, plans, and daily reflections.
 Entry Title: "${String(title).slice(0, 120)}"
 Current Reflection Mode: ${reflectionMode.toUpperCase()} - ${modeGuidance}
@@ -129,6 +131,14 @@ Guidelines:
 - Keep paragraphs readable, well-spaced, with clear markdown formatting where helpful (bullet points, bold highlights).
 - Maintain an encouraging and non-judgmental tone. Never dismiss user feelings.
 - Never output arbitrary code or system commands.`;
+
+      if (previousEntriesContext) {
+        systemInstruction += `\n\n--- PAST JOURNAL ENTRIES CONTEXT ---\nThe user has shared summaries of their past journal entries for context. Use this to understand ongoing themes, but focus primarily on their current entry.\n${previousEntriesContext}`;
+      }
+
+      if (cycleLogsContext) {
+        systemInstruction += `\n\n--- RECENT CYCLE LOGS CONTEXT ---\nThe user has logged their recent menstrual cycle phases and symptoms. Use this to provide holistic, empathetic reflections if relevant.\n${cycleLogsContext}`;
+      }
 
       // Build conversation contents
       const formattedContents: Array<{ role: 'user' | 'model'; parts: Array<{ text: string }> }> = [];
@@ -638,8 +648,8 @@ The user is speaking to you directly to journal their thoughts without typing an
     }
   });
 
-  server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on http://0.0.0.0:${PORT}`);
+  server.listen(PORT, 'localhost', () => {
+    console.log(`Server running on http://localhost:${PORT}`);
   });
 }
 

@@ -27,8 +27,11 @@ import { requestReflection, requestSummary, requestSentimentAnalysis } from '../
 import { getMoodVisual } from '../lib/sentimentUtils';
 import { monumentSound } from '../lib/monumentSound';
 import { getRealmTheme, MonumentRealmTheme } from '../lib/realmTheme';
+import { getAllCycleLogs } from '../lib/cycleStorage';
 
 interface EntryEditorProps {
+  userId?: string;
+  previousEntries?: JournalEntry[];
   entry: JournalEntry;
   onUpdateEntry: (updated: JournalEntry) => Promise<void>;
   onOpenSummaryModal: (entry: JournalEntry) => void;
@@ -72,6 +75,8 @@ const REFLECTION_MODES: Array<{
 ];
 
 export const EntryEditor: React.FC<EntryEditorProps> = ({
+  userId,
+  previousEntries = [],
   entry,
   onUpdateEntry,
   onOpenSummaryModal,
@@ -221,12 +226,42 @@ export const EntryEditor: React.FC<EntryEditorProps> = ({
     setCurrentPrompt('');
 
     try {
+      // Build Context Strings
+      let previousEntriesContext = '';
+      if (previousEntries.length > 0) {
+        const pastEntries = previousEntries.filter((e) => e.id !== entry.id).slice(0, 5);
+        if (pastEntries.length > 0) {
+          previousEntriesContext = pastEntries
+            .map(
+              (e) =>
+                `- Date: ${new Date(e.createdAt).toLocaleDateString()}\n  Title: ${e.title}\n  Summary: ${e.summary || 'No summary'}\n  Sentiment: ${e.sentiment || 'Unknown'}`
+            )
+            .join('\n\n');
+        }
+      }
+
+      let cycleLogsContext = '';
+      if (userId) {
+        const cycleLogs = await getAllCycleLogs(userId);
+        const recentLogs = cycleLogs.slice(0, 3);
+        if (recentLogs.length > 0) {
+          cycleLogsContext = recentLogs
+            .map(
+              (l) =>
+                `- Date: ${l.date}\n  Phase: ${l.phase}\n  Moods: ${l.moods.join(', ')}\n  Symptoms: ${l.symptoms.join(', ')}`
+            )
+            .join('\n\n');
+        }
+      }
+
       // 1. Call Gemini Backend Route
       const geminiRes = await requestReflection({
         prompt: submittedPrompt,
         conversationHistory: entry.messages,
         reflectionMode,
         title: entry.title,
+        previousEntriesContext,
+        cycleLogsContext,
       });
 
       const geminiMsg: JournalMessage = {

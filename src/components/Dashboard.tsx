@@ -56,7 +56,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     if (saved === 'rose' || saved === 'twilight' || saved === 'sand' || saved === 'teal') {
       return saved;
     }
-    return 'rose';
+    return 'sand';
   });
 
   // Synchronize dynamic realm theme on document root
@@ -437,15 +437,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
           id="workspace-cycle-realm-btn"
           type="button"
           onClick={cycleTheme}
-          className={`px-3.5 py-1.5 rounded-full backdrop-blur-md border text-xs font-serif transition-all cursor-pointer shadow-2xs capitalize flex items-center gap-2 active:scale-95 group ${
-            monumentTheme === 'twilight'
+          className={`px-3.5 py-1.5 rounded-full backdrop-blur-md border text-xs font-serif transition-all cursor-pointer shadow-2xs capitalize flex items-center gap-2 active:scale-95 group ${monumentTheme === 'twilight'
               ? 'bg-[#1C182F]/90 hover:bg-[#25203D] border-[#3F375E] text-[#E8E2FA]'
               : monumentTheme === 'sand'
-              ? 'bg-white/90 hover:bg-white border-[#EFE3D5] text-stone-800'
-              : monumentTheme === 'teal'
-              ? 'bg-white/90 hover:bg-white border-[#D5EAE2] text-stone-800'
-              : 'bg-white/90 hover:bg-white border-[#F2DDE3] text-stone-800'
-          }`}
+                ? 'bg-white/90 hover:bg-white border-[#EFE3D5] text-stone-800'
+                : monumentTheme === 'teal'
+                  ? 'bg-white/90 hover:bg-white border-[#D5EAE2] text-stone-800'
+                  : 'bg-white/90 hover:bg-white border-[#F2DDE3] text-stone-800'
+            }`}
           title="Switch Realm Atmosphere"
         >
           <span
@@ -455,10 +454,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
                 monumentTheme === 'twilight'
                   ? '#C084FC'
                   : monumentTheme === 'sand'
-                  ? '#EA580C'
-                  : monumentTheme === 'teal'
-                  ? '#0D9488'
-                  : '#E11D48',
+                    ? '#EA580C'
+                    : monumentTheme === 'teal'
+                      ? '#0D9488'
+                      : '#E11D48',
             }}
           />
           <span className="font-medium">{monumentTheme} Realm</span>
@@ -470,9 +469,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
         {/* Past Reflections Drawer (Collapsible) */}
         {activeTab === 'journal' && (
           <div
-            className={`transition-all duration-300 ease-in-out shrink-0 h-full ${
-              isHistoryOpen ? 'w-80 opacity-100' : 'w-0 opacity-0 pointer-events-none'
-            } hidden lg:block overflow-hidden`}
+            className={`transition-all duration-300 ease-in-out shrink-0 h-full ${isHistoryOpen ? 'w-80 opacity-100' : 'w-0 opacity-0 pointer-events-none'
+              } hidden lg:block overflow-hidden`}
           >
             <EntryHistory
               entries={entries}
@@ -542,7 +540,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             </div>
           ) : selectedEntry ? (
             <EntryEditor
-              key={selectedEntry.id}
+              userId={user.uid}
+              previousEntries={entries}
               entry={selectedEntry}
               onUpdateEntry={handleUpdateEntry}
               onOpenSummaryModal={handleOpenSummaryModal}

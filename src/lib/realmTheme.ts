@@ -261,6 +261,6 @@ export const REALM_THEMES: Record<MonumentRealmTheme, RealmThemeTokens> = {
   },
 };
 
-export const getRealmTheme = (theme: MonumentRealmTheme = 'rose'): RealmThemeTokens => {
-  return REALM_THEMES[theme] || REALM_THEMES.rose;
+export const getRealmTheme = (theme: MonumentRealmTheme = 'sand'): RealmThemeTokens => {
+  return REALM_THEMES[theme] || REALM_THEMES['sand'];
 };
