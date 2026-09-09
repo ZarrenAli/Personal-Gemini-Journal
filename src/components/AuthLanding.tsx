@@ -103,25 +103,23 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
         {/* Floating Top-Right Realm Switcher & Sound Chime Capsule */}
         <div className="absolute top-4 right-4 sm:top-6 sm:right-8 z-40 flex items-center">
           <div
-            className={`flex items-center gap-1.5 backdrop-blur-md py-1.5 px-3 rounded-full border shadow-sm transition-all duration-500 ${
-              monumentTheme === 'twilight'
-                ? 'bg-[#1C182F]/20 hover:bg-[#25203D]/40 border-[#3F375E] text-[#E8E2FA]'
-                : monumentTheme === 'sand'
+            className={`flex items-center gap-1.5 backdrop-blur-md py-1.5 px-3 rounded-full border shadow-sm transition-all duration-500 ${monumentTheme === 'twilight'
+              ? 'bg-[#1C182F]/20 hover:bg-[#25203D]/40 border-[#3F375E] text-[#E8E2FA]'
+              : monumentTheme === 'sand'
                 ? 'bg-white/20 hover:bg-white/40 border-[#EFE3D5] text-stone-800'
                 : monumentTheme === 'teal'
-                ? 'bg-white/20 hover:bg-white/40 border-[#D5EAE2] text-stone-800'
-                : 'bg-white/20 hover:bg-white/40 border-[#F2DDE3] text-stone-800'
-            }`}
+                  ? 'bg-white/20 hover:bg-white/40 border-[#D5EAE2] text-stone-800'
+                  : 'bg-white/20 hover:bg-white/40 border-[#F2DDE3] text-stone-800'
+              }`}
           >
             <button
               id="cycle-realm-btn"
               type="button"
               onClick={cycleTheme}
-              className={`text-xs font-serif font-medium transition-colors cursor-pointer capitalize flex items-center gap-2 py-0.5 ${
-                monumentTheme === 'twilight'
-                  ? 'text-[#F3EFFE] hover:text-white'
-                  : 'text-stone-800 hover:text-stone-950'
-              }`}
+              className={`text-xs font-serif font-medium transition-colors cursor-pointer capitalize flex items-center gap-2 py-0.5 ${monumentTheme === 'twilight'
+                ? 'text-[#F3EFFE] hover:text-white'
+                : 'text-stone-800 hover:text-stone-950'
+                }`}
               title="Click to Switch Realm Atmosphere"
             >
               <span
@@ -131,18 +129,17 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
                     monumentTheme === 'twilight'
                       ? '#C084FC'
                       : monumentTheme === 'sand'
-                      ? '#EA580C'
-                      : monumentTheme === 'teal'
-                      ? '#0D9488'
-                      : '#E11D48',
+                        ? '#EA580C'
+                        : monumentTheme === 'teal'
+                          ? '#0D9488'
+                          : '#E11D48',
                 }}
               />
               <span>{monumentTheme} Realm</span>
             </button>
             <div
-              className={`w-[1px] h-3.5 mx-0.5 ${
-                monumentTheme === 'twilight' ? 'bg-[#3F375E]' : 'bg-stone-300/80'
-              }`}
+              className={`w-[1px] h-3.5 mx-0.5 ${monumentTheme === 'twilight' ? 'bg-[#3F375E]' : 'bg-stone-300/80'
+                }`}
             />
             <MonumentChimeToggle
               muted={chimesMuted}
@@ -163,21 +160,19 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
             className="w-full flex flex-col items-center text-center"
           >
             <h1
-              className={`text-3xl sm:text-5xl md:text-6xl font-serif font-light tracking-tight leading-tight transition-colors duration-500 ${
-                monumentTheme === 'twilight' ? 'text-white' : 'text-stone-900'
-              }`}
+              className={`text-3xl sm:text-5xl md:text-6xl font-serif font-light tracking-tight leading-tight transition-colors duration-500 ${monumentTheme === 'twilight' ? 'text-white' : 'text-stone-900'
+                }`}
             >
               <span className="block">Pause. Breathe.</span>
               <span
-                className={`block mt-1 sm:mt-2 font-normal italic transition-colors duration-500 whitespace-nowrap ${
-                  monumentTheme === 'twilight'
-                    ? 'text-purple-300'
-                    : monumentTheme === 'teal'
+                className={`block mt-1 sm:mt-2 font-normal italic transition-colors duration-500 whitespace-nowrap ${monumentTheme === 'twilight'
+                  ? 'text-purple-300'
+                  : monumentTheme === 'teal'
                     ? 'text-teal-800'
                     : monumentTheme === 'sand'
-                    ? 'text-amber-800'
-                    : 'text-rose-800'
-                }`}
+                      ? 'text-amber-800'
+                      : 'text-rose-800'
+                  }`}
               >
                 Discover your center.
               </span>
@@ -278,9 +273,8 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
             <span>A Sanctuary for the Modern Mind</span>
           </div>
           <h2
-            className={`text-3xl sm:text-4xl md:text-5xl font-serif font-light tracking-tight leading-tight mb-4 ${
-              monumentTheme === 'twilight' ? 'text-white' : 'text-stone-900'
-            }`}
+            className={`text-3xl sm:text-4xl md:text-5xl font-serif font-light tracking-tight leading-tight mb-4 ${monumentTheme === 'twilight' ? 'text-white' : 'text-stone-900'
+              }`}
           >
             Clear your thoughts. <br className="hidden sm:inline" />
             <span className="italic font-normal">Find calm in every reflection.</span>
@@ -292,7 +286,7 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
 
         {/* Feature Cards Grid (6 High-Converting Cards) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          
+
           {/* CARD 1: Gemini AI Depth Reflections */}
           <div className="group relative rounded-3xl bg-white/10 dark:bg-stone-900/10 backdrop-blur-md border border-white/80 dark:border-stone-800/80 p-7 shadow-lg shadow-stone-900/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
             <div>
@@ -300,18 +294,18 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
                 <Sparkles className="w-6 h-6" />
               </div>
               <div className="inline-block text-[11px] font-sans font-medium uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1.5">
-                Compassionate Mirror
+                A Listening Ear
               </div>
               <h3 className="text-xl font-serif text-stone-900 dark:text-stone-100 mb-2.5">
-                AI Depth Reflections
+                AI Reflections
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                Pour out whatever is on your mind. Gemini AI gently summarizes your feelings, highlights hidden themes, and asks meaningful questions—with zero judgment.
+                Pour out your thoughts freely. Receive gentle, unbiased reflections that help you find clarity and uncover hidden patterns in your mind.
               </p>
             </div>
             <div className="mt-5 pt-4 border-t border-stone-200/50 dark:border-stone-800/60 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
               <CheckCircle2 className="w-3.5 h-3.5 text-rose-500" />
-              <span>Personalized clarity & reframing</span>
+              <span>Clarity without judgment</span>
             </div>
           </div>
 
@@ -325,15 +319,15 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
                 Speak Freely
               </div>
               <h3 className="text-xl font-serif text-stone-900 dark:text-stone-100 mb-2.5">
-                Effortless Voice Journal
+                Voice Journaling
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                Too exhausted to type after a hectic day? Simply tap the mic and talk. Real-time audio transcription captures your raw emotion without friction.
+                When you're too exhausted to type, simply tap the mic and talk. Your raw emotions are safely captured and transcribed as you speak.
               </p>
             </div>
             <div className="mt-5 pt-4 border-t border-stone-200/50 dark:border-stone-800/60 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
               <CheckCircle2 className="w-3.5 h-3.5 text-teal-500" />
-              <span>Instant live speech-to-text</span>
+              <span>Capture thoughts effortlessly</span>
             </div>
           </div>
 
@@ -344,18 +338,18 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
                 <TrendingUp className="w-6 h-6" />
               </div>
               <div className="inline-block text-[11px] font-sans font-medium uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1.5">
-                Visual Growth
+                Inner Growth
               </div>
               <h3 className="text-xl font-serif text-stone-900 dark:text-stone-100 mb-2.5">
-                Mood & Emotional Trends
+                Emotional Trends
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                Watch how your headspace evolves across days and weeks. Interactive charts reveal emotional triggers, positive habits, and milestones in your wellbeing.
+                Watch how your headspace evolves over time. Discover what triggers your feelings and celebrate milestones in your personal wellbeing journey.
               </p>
             </div>
             <div className="mt-5 pt-4 border-t border-stone-200/50 dark:border-stone-800/60 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
               <CheckCircle2 className="w-3.5 h-3.5 text-amber-500" />
-              <span>Interactive mood progression</span>
+              <span>Track your emotional shifts</span>
             </div>
           </div>
 
@@ -366,18 +360,18 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
                 <Heart className="w-6 h-6" />
               </div>
               <div className="inline-block text-[11px] font-sans font-medium uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1.5">
-                For Women &amp; Girls &bull; Cycle Intelligence
+                Body &amp; Mind
               </div>
               <h3 className="text-xl font-serif text-stone-900 dark:text-stone-100 mb-2.5">
-                Cycle &amp; Hormonal Mood Tracker
+                Cycle Insights
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                Keep track of your menstrual cycle and hormonal state right alongside your journal. The sanctuary connects your reflections with your cycle phases to explain sudden mood swings—uncovering insights like <em>&ldquo;It is mostly on these cycle days when you feel this way.&rdquo;</em>
+                Connect your journal with your menstrual cycle. Uncover how your natural rhythms subtly influence your daily moods, energy, and overall state of mind.
               </p>
             </div>
             <div className="mt-5 pt-4 border-t border-stone-200/50 dark:border-stone-800/60 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
               <CheckCircle2 className="w-3.5 h-3.5 text-rose-500" />
-              <span>Correlates cycle days with mood &amp; energy</span>
+              <span>Link rhythms to your emotions</span>
             </div>
           </div>
 
@@ -391,15 +385,15 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
                 Sensory Calm
               </div>
               <h3 className="text-xl font-serif text-stone-900 dark:text-stone-100 mb-2.5">
-                4 Serene Realm Atmospheres
+                Serene Atmospheres
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                Step away from chaotic noise. Switch effortlessly between Rose petals, Sand shoreline, Teal forest boughs, and Twilight starry skies with gentle wind chimes.
+                Step away from the noise. Immerse yourself in calming visual realms and gentle wind chimes designed to help you breathe and center your focus.
               </p>
             </div>
             <div className="mt-5 pt-4 border-t border-stone-200/50 dark:border-stone-800/60 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
               <CheckCircle2 className="w-3.5 h-3.5 text-purple-500" />
-              <span>Harmonic tactile audio bells</span>
+              <span>Audio and visual tranquility</span>
             </div>
           </div>
 
@@ -410,18 +404,18 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
                 <Shield className="w-6 h-6" />
               </div>
               <div className="inline-block text-[11px] font-sans font-medium uppercase tracking-wider text-stone-600 dark:text-stone-400 mb-1.5">
-                Sacred & Safe
+                Safe &amp; Private
               </div>
               <h3 className="text-xl font-serif text-stone-900 dark:text-stone-100 mb-2.5">
-                Isolated & Encrypted Space
+                Your Private Space
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                Your thoughts belong only to you. No advertisers, no public feeds, and no data harvesting. Everything stays safely within your private sanctuary.
+                Your thoughts belong only to you. We ensure your reflections remain completely private, secure, and for your eyes only.
               </p>
             </div>
             <div className="mt-5 pt-4 border-t border-stone-200/50 dark:border-stone-800/60 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
               <CheckCircle2 className="w-3.5 h-3.5 text-stone-600 dark:text-stone-300" />
-              <span>Zero tracking or public sharing</span>
+              <span>100% private and secure</span>
             </div>
           </div>
 
@@ -486,9 +480,8 @@ export const AuthLanding: React.FC<AuthLandingProps> = () => {
             <HeartHandshake className="w-6 h-6" />
           </div>
           <h3
-            className={`text-2xl sm:text-3xl md:text-4xl font-serif font-light mb-3 ${
-              monumentTheme === 'twilight' ? 'text-white' : 'text-stone-900'
-            }`}
+            className={`text-2xl sm:text-3xl md:text-4xl font-serif font-light mb-3 ${monumentTheme === 'twilight' ? 'text-white' : 'text-stone-900'
+              }`}
           >
             Ready to discover quiet in a noisy world?
           </h3>

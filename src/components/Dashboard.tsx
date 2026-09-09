@@ -59,7 +59,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     }
     return 'sand';
   });
-  
+
   const [isMuted, setIsMuted] = useState(monumentSound.getMuted());
 
   // Synchronize dynamic realm theme on document root and update audio track
@@ -439,9 +439,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
       {/* Top Floating Controls */}
       <div className={`absolute top-3 right-3 sm:top-7 sm:right-6 z-30 flex items-center gap-2 sm:gap-3 pointer-events-auto transition-opacity duration-300 ${isHistoryOpen ? 'opacity-0 lg:opacity-100 pointer-events-none lg:pointer-events-auto' : 'opacity-100'}`}>
         <div className="bg-white/70 backdrop-blur-md rounded-full shadow-2xs p-1 sm:p-1.5 border border-white/50 flex items-center justify-center scale-90 sm:scale-100">
-          <MonumentChimeToggle 
-            muted={isMuted} 
-            onToggleMute={(muted) => setIsMuted(muted)} 
+          <MonumentChimeToggle
+            muted={isMuted}
+            onToggleMute={(muted) => setIsMuted(muted)}
           />
         </div>
         <button
@@ -449,12 +449,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
           type="button"
           onClick={cycleTheme}
           className={`px-3.5 py-1.5 rounded-full backdrop-blur-md border text-xs font-serif transition-all cursor-pointer shadow-2xs capitalize flex items-center gap-2 active:scale-95 group ${monumentTheme === 'twilight'
-              ? 'bg-[#1C182F]/90 hover:bg-[#25203D] border-[#3F375E] text-[#E8E2FA]'
-              : monumentTheme === 'sand'
-                ? 'bg-white/90 hover:bg-white border-[#EFE3D5] text-stone-800'
-                : monumentTheme === 'teal'
-                  ? 'bg-white/90 hover:bg-white border-[#D5EAE2] text-stone-800'
-                  : 'bg-white/90 hover:bg-white border-[#F2DDE3] text-stone-800'
+            ? 'bg-[#1C182F]/90 hover:bg-[#25203D] border-[#3F375E] text-[#E8E2FA]'
+            : monumentTheme === 'sand'
+              ? 'bg-white/90 hover:bg-white border-[#EFE3D5] text-stone-800'
+              : monumentTheme === 'teal'
+                ? 'bg-white/90 hover:bg-white border-[#D5EAE2] text-stone-800'
+                : 'bg-white/90 hover:bg-white border-[#F2DDE3] text-stone-800'
             }`}
           title="Switch Realm Atmosphere"
         >
